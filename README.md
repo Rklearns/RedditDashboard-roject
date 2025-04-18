@@ -1,7 +1,5 @@
 # Social media dashboard
 
 deployed on[ https://v0-social-media-dashboard-u0.vercel.app/](url)
-This project represents the data with the reddit dataset 
-EDA done on the dataset to get meaningfull graphs , time series, trends.
-Sentiment analysis performed on the dataset.
-An AI Chatbot that gives responses related to the dataset 
+
+This Social Media Dashboard presents a visually clean and interactive overview of key social metrics across multiple platforms. It features dynamic cards displaying follower counts, engagement statistics, and daily changes, making it easy to monitor performance at a glance. The layout is fully responsive, adapting seamlessly to different screen sizes. Users can switch between light and dark themes for comfortable viewing. With a focus on visual clarity and intuitive design, the dashboard emphasizes trend analysis and comparative insights, offering an efficient way to explore and interpret social data.
