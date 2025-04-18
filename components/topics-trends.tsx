@@ -1,52 +1,44 @@
 "use client"
 
-import {
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Legend,
-} from "@/components/ui/chart"
+import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid, Legend } from "recharts"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 
 // Sample data for topics trends
 const topicsTrendsData = [
-  { date: "2023-01", topic1: 65, topic2: 28, topic3: 45, topic4: 32 },
-  { date: "2023-02", topic1: 59, topic2: 32, topic3: 48, topic4: 36 },
-  { date: "2023-03", topic1: 80, topic2: 38, topic3: 52, topic4: 40 },
-  { date: "2023-04", topic1: 81, topic2: 42, topic3: 55, topic4: 45 },
-  { date: "2023-05", topic1: 56, topic2: 48, topic3: 58, topic4: 50 },
-  { date: "2023-06", topic1: 55, topic2: 52, topic3: 62, topic4: 55 },
-  { date: "2023-07", topic1: 40, topic2: 58, topic3: 65, topic4: 60 },
-  { date: "2023-08", topic1: 45, topic2: 62, topic3: 68, topic4: 65 },
-  { date: "2023-09", topic1: 50, topic2: 68, topic3: 72, topic4: 70 },
-  { date: "2023-10", topic1: 55, topic2: 72, topic3: 75, topic4: 75 },
-  { date: "2023-11", topic1: 60, topic2: 78, topic3: 78, topic4: 80 },
-  { date: "2023-12", topic1: 65, topic2: 82, topic3: 82, topic4: 85 },
+  { date: "Jan", topic1: 65, topic2: 28, topic3: 45, topic4: 32 },
+  { date: "Feb", topic1: 59, topic2: 32, topic3: 48, topic4: 36 },
+  { date: "Mar", topic1: 80, topic2: 38, topic3: 52, topic4: 40 },
+  { date: "Apr", topic1: 81, topic2: 42, topic3: 55, topic4: 45 },
+  { date: "May", topic1: 56, topic2: 48, topic3: 58, topic4: 50 },
+  { date: "Jun", topic1: 55, topic2: 52, topic3: 62, topic4: 55 },
+  { date: "Jul", topic1: 40, topic2: 58, topic3: 65, topic4: 60 },
+  { date: "Aug", topic1: 45, topic2: 62, topic3: 68, topic4: 65 },
+  { date: "Sep", topic1: 50, topic2: 68, topic3: 72, topic4: 70 },
+  { date: "Oct", topic1: 55, topic2: 72, topic3: 75, topic4: 75 },
+  { date: "Nov", topic1: 60, topic2: 78, topic3: 78, topic4: 80 },
+  { date: "Dec", topic1: 65, topic2: 82, topic3: 82, topic4: 85 },
 ]
 
-const topicLabels = {
-  topic1: { name: "Technology", color: "primary" },
-  topic2: { name: "Politics", color: "secondary" },
-  topic3: { name: "Entertainment", color: "default" },
-  topic4: { name: "Sports", color: "outline" },
-}
+const topicLabels = [
+  { id: "topic1", name: "Technology", color: "#766CDB" },
+  { id: "topic2", name: "Politics", color: "#DA847C" },
+  { id: "topic3", name: "Entertainment", color: "#D9CC8B" },
+  { id: "topic4", name: "Sports", color: "#7CD9A5" },
+]
 
 export function TopicsTrends() {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
-        {Object.entries(topicLabels).map(([key, { name, color }]) => (
+        {topicLabels.map((topic) => (
           <Badge
-            key={key}
-            variant={color === "outline" ? "outline" : "default"}
-            className={color !== "outline" ? `bg-chart-${color}` : ""}
+            key={topic.id}
+            variant="outline"
+            className="border-2 px-3 py-1"
+            style={{ borderColor: topic.color, color: topic.color }}
           >
-            {name}
+            {topic.name}
           </Badge>
         ))}
       </div>
@@ -59,10 +51,10 @@ export function TopicsTrends() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="topic1" name="Technology" stroke="hsl(var(--chart-primary))" />
-            <Line type="monotone" dataKey="topic2" name="Politics" stroke="hsl(var(--chart-secondary))" />
-            <Line type="monotone" dataKey="topic3" name="Entertainment" stroke="hsl(var(--chart-tertiary))" />
-            <Line type="monotone" dataKey="topic4" name="Sports" stroke="hsl(var(--chart-quaternary))" />
+            <Line type="monotone" dataKey="topic1" name="Technology" stroke="#766CDB" strokeWidth={2} />
+            <Line type="monotone" dataKey="topic2" name="Politics" stroke="#DA847C" strokeWidth={2} />
+            <Line type="monotone" dataKey="topic3" name="Entertainment" stroke="#D9CC8B" strokeWidth={2} />
+            <Line type="monotone" dataKey="topic4" name="Sports" stroke="#7CD9A5" strokeWidth={2} />
           </LineChart>
         </ResponsiveContainer>
       </div>

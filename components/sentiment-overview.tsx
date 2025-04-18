@@ -1,30 +1,21 @@
 "use client"
 
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  Legend,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "@/components/ui/chart"
+import { Area, AreaChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 // Sample data for sentiment overview
 const sentimentOverTimeData = [
-  { date: "2023-01", positive: 35, neutral: 45, negative: 20 },
-  { date: "2023-02", positive: 38, neutral: 42, negative: 20 },
-  { date: "2023-03", positive: 40, neutral: 40, negative: 20 },
-  { date: "2023-04", positive: 42, neutral: 38, negative: 20 },
-  { date: "2023-05", positive: 45, neutral: 35, negative: 20 },
-  { date: "2023-06", positive: 48, neutral: 32, negative: 20 },
-  { date: "2023-07", positive: 50, neutral: 30, negative: 20 },
-  { date: "2023-08", positive: 52, neutral: 28, negative: 20 },
-  { date: "2023-09", positive: 55, neutral: 25, negative: 20 },
-  { date: "2023-10", positive: 58, neutral: 22, negative: 20 },
-  { date: "2023-11", positive: 60, neutral: 20, negative: 20 },
-  { date: "2023-12", positive: 62, neutral: 18, negative: 20 },
+  { date: "Jan", positive: 35, neutral: 45, negative: 20 },
+  { date: "Feb", positive: 38, neutral: 42, negative: 20 },
+  { date: "Mar", positive: 40, neutral: 40, negative: 20 },
+  { date: "Apr", positive: 42, neutral: 38, negative: 20 },
+  { date: "May", positive: 45, neutral: 35, negative: 20 },
+  { date: "Jun", positive: 48, neutral: 32, negative: 20 },
+  { date: "Jul", positive: 50, neutral: 30, negative: 20 },
+  { date: "Aug", positive: 52, neutral: 28, negative: 20 },
+  { date: "Sep", positive: 55, neutral: 25, negative: 20 },
+  { date: "Oct", positive: 58, neutral: 22, negative: 20 },
+  { date: "Nov", positive: 60, neutral: 20, negative: 20 },
+  { date: "Dec", positive: 62, neutral: 18, negative: 20 },
 ]
 
 export function SentimentOverview() {

@@ -1,15 +1,11 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Slider } from "@/components/ui/slider"
+import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { ZoomIn, ZoomOut, RefreshCw } from "lucide-react"
+import { RefreshCw } from "lucide-react"
 
 export function TopicModeling() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [view, setView] = useState("2d")
-  const [zoom, setZoom] = useState([50])
 
   useEffect(() => {
     if (!canvasRef.current) return
@@ -26,7 +22,7 @@ export function TopicModeling() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     // Draw topic modeling visualization
-    drawTopicModeling(ctx, canvas.width, canvas.height, view, zoom[0])
+    drawTopicModeling(ctx, canvas.width, canvas.height)
 
     // Handle window resize
     const handleResize = () => {
@@ -34,27 +30,18 @@ export function TopicModeling() {
       canvasRef.current.width = canvasRef.current.offsetWidth
       canvasRef.current.height = canvasRef.current.offsetHeight
       if (ctx) {
-        drawTopicModeling(ctx, canvasRef.current.width, canvasRef.current.height, view, zoom[0])
+        drawTopicModeling(ctx, canvasRef.current.width, canvasRef.current.height)
       }
     }
 
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
-  }, [view, zoom])
+  }, [])
 
   // Function to draw the topic modeling visualization
-  const drawTopicModeling = (
-    ctx: CanvasRenderingContext2D,
-    width: number,
-    height: number,
-    view: string,
-    zoomLevel: number,
-  ) => {
+  const drawTopicModeling = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
     // Clear canvas
     ctx.clearRect(0, 0, width, height)
-
-    // Calculate scale based on zoom level (50 is default)
-    const scale = zoomLevel / 50
 
     // Center of the canvas
     const centerX = width / 2
@@ -64,36 +51,36 @@ export function TopicModeling() {
     const topics = [
       {
         name: "Technology",
-        x: -100 * scale,
-        y: -80 * scale,
-        radius: 70 * scale,
+        x: -100,
+        y: -80,
+        radius: 70,
         color: "rgba(118, 108, 219, 0.2)",
         borderColor: "rgba(118, 108, 219, 0.8)",
         words: ["AI", "software", "hardware", "programming", "computer"],
       },
       {
         name: "Politics",
-        x: 100 * scale,
-        y: -60 * scale,
-        radius: 60 * scale,
+        x: 100,
+        y: -60,
+        radius: 60,
         color: "rgba(218, 132, 124, 0.2)",
         borderColor: "rgba(218, 132, 124, 0.8)",
         words: ["election", "government", "policy", "vote", "democracy"],
       },
       {
         name: "Entertainment",
-        x: 0 * scale,
-        y: 100 * scale,
-        radius: 65 * scale,
+        x: 0,
+        y: 100,
+        radius: 65,
         color: "rgba(217, 204, 139, 0.2)",
         borderColor: "rgba(217, 204, 139, 0.8)",
         words: ["movie", "music", "celebrity", "streaming", "TV"],
       },
       {
         name: "Sports",
-        x: -120 * scale,
-        y: 60 * scale,
-        radius: 55 * scale,
+        x: -120,
+        y: 60,
+        radius: 55,
         color: "rgba(124, 217, 165, 0.2)",
         borderColor: "rgba(124, 217, 165, 0.8)",
         words: ["football", "basketball", "player", "team", "game"],
@@ -119,17 +106,15 @@ export function TopicModeling() {
       ctx.fillText(topic.name, centerX + topic.x, centerY + topic.y)
 
       // Draw topic words
-      if (view === "2d") {
-        const wordRadius = topic.radius * 0.7
-        topic.words.forEach((word, i) => {
-          const angle = (i / topic.words.length) * Math.PI * 2
-          const wordX = topic.x + Math.cos(angle) * wordRadius * 0.7
-          const wordY = topic.y + Math.sin(angle) * wordRadius * 0.7
+      const wordRadius = topic.radius * 0.7
+      topic.words.forEach((word, i) => {
+        const angle = (i / topic.words.length) * Math.PI * 2
+        const wordX = topic.x + Math.cos(angle) * wordRadius * 0.7
+        const wordY = topic.y + Math.sin(angle) * wordRadius * 0.7
 
-          ctx.font = "12px sans-serif"
-          ctx.fillText(word, centerX + wordX, centerY + wordY)
-        })
-      }
+        ctx.font = "12px sans-serif"
+        ctx.fillText(word, centerX + wordX, centerY + wordY)
+      })
     })
 
     // Draw connections between related topics
@@ -161,28 +146,21 @@ export function TopicModeling() {
     ctx.stroke()
   }
 
+  const refreshTopics = () => {
+    if (!canvasRef.current) return
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+    drawTopicModeling(ctx, canvas.width, canvas.height)
+  }
+
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <Tabs defaultValue="2d" className="w-fit" onValueChange={setView}>
-          <TabsList>
-            <TabsTrigger value="2d">2D View</TabsTrigger>
-            <TabsTrigger value="3d">Cluster View</TabsTrigger>
-          </TabsList>
-        </Tabs>
-
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => setZoom([Math.max(10, zoom[0] - 10)])}>
-            <ZoomOut className="h-4 w-4" />
-          </Button>
-          <Slider className="w-[100px]" value={zoom} min={10} max={100} step={1} onValueChange={setZoom} />
-          <Button variant="outline" size="icon" onClick={() => setZoom([Math.min(100, zoom[0] + 10)])}>
-            <ZoomIn className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="icon" onClick={() => setZoom([50])}>
-            <RefreshCw className="h-4 w-4" />
-          </Button>
-        </div>
+      <div className="flex justify-end">
+        <Button variant="outline" size="sm" onClick={refreshTopics}>
+          <RefreshCw className="mr-2 h-4 w-4" />
+          Refresh
+        </Button>
       </div>
 
       <div className="relative h-[400px] w-full rounded-md border">

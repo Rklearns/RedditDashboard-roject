@@ -1,19 +1,19 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "@/components/ui/chart"
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis, Cell } from "recharts"
 
 // Sample data for top subreddits
 const topSubredditsData = [
-  { name: "r/technology", posts: 3500 },
-  { name: "r/politics", posts: 3200 },
-  { name: "r/news", posts: 2800 },
-  { name: "r/worldnews", posts: 2500 },
-  { name: "r/science", posts: 2200 },
-  { name: "r/askreddit", posts: 2000 },
-  { name: "r/gaming", posts: 1800 },
-  { name: "r/movies", posts: 1600 },
-  { name: "r/television", posts: 1400 },
-  { name: "r/music", posts: 1200 },
+  { name: "r/technology", posts: 3500, color: "#766CDB" },
+  { name: "r/politics", posts: 3200, color: "#DA847C" },
+  { name: "r/news", posts: 2800, color: "#D9CC8B" },
+  { name: "r/worldnews", posts: 2500, color: "#7CD9A5" },
+  { name: "r/science", posts: 2200, color: "#877877" },
+  { name: "r/askreddit", posts: 2000, color: "#52515E" },
+  { name: "r/gaming", posts: 1800, color: "#766CDB" },
+  { name: "r/movies", posts: 1600, color: "#DA847C" },
+  { name: "r/television", posts: 1400, color: "#D9CC8B" },
+  { name: "r/music", posts: 1200, color: "#7CD9A5" },
 ]
 
 export function TopSubreddits() {
@@ -26,7 +26,11 @@ export function TopSubreddits() {
           <YAxis type="category" dataKey="name" />
           <Tooltip />
           <Legend />
-          <Bar dataKey="posts" fill="hsl(var(--chart-primary))" name="Posts" />
+          <Bar dataKey="posts" name="Posts" fill="#766CDB">
+            {topSubredditsData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     </div>

@@ -11,6 +11,7 @@ import { NetworkVisualization } from "@/components/network-visualization"
 import { TopicModeling } from "@/components/topic-modeling"
 import { AiChatbot } from "@/components/ai-chatbot"
 import { SentimentAnalysis } from "@/components/sentiment-analysis"
+import { SentimentOverview } from "@/components/sentiment-overview"
 import { StatsCards } from "@/components/stats-cards"
 
 export function DashboardContent() {
@@ -25,21 +26,22 @@ export function DashboardContent() {
 
       <StatsCards />
 
-      <Tabs defaultValue="overview" className="space-y-4" onValueChange={setActiveTab}>
-        <TabsList>
+      <Tabs defaultValue="overview" className="space-y-6" onValueChange={setActiveTab}>
+        <TabsList className="grid w-full grid-cols-3 md:grid-cols-7">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="time-series">Time Series</TabsTrigger>
-          <TabsTrigger value="topics">Topics & Trends</TabsTrigger>
+          <TabsTrigger value="topics">Topics</TabsTrigger>
           <TabsTrigger value="communities">Communities</TabsTrigger>
+          <TabsTrigger value="sentiment">Sentiment</TabsTrigger>
           <TabsTrigger value="network">Network</TabsTrigger>
           <TabsTrigger value="ai-features">AI Features</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-4">
+        <TabsContent value="overview" className="space-y-6">
           <Overview />
         </TabsContent>
 
-        <TabsContent value="time-series" className="space-y-4">
+        <TabsContent value="time-series" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Posts Time Series</CardTitle>
@@ -51,7 +53,7 @@ export function DashboardContent() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="topics" className="space-y-4">
+        <TabsContent value="topics" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Topics & Trends</CardTitle>
@@ -73,7 +75,7 @@ export function DashboardContent() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="communities" className="space-y-4">
+        <TabsContent value="communities" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Community Distribution</CardTitle>
@@ -85,7 +87,29 @@ export function DashboardContent() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="network" className="space-y-4">
+        <TabsContent value="sentiment" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Sentiment Overview</CardTitle>
+              <CardDescription>Sentiment distribution over time across all platforms</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <SentimentOverview />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Sentiment Analysis</CardTitle>
+              <CardDescription>Detailed sentiment breakdown by platform and category</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <SentimentAnalysis />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="network" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Network Visualization</CardTitle>
@@ -99,28 +123,16 @@ export function DashboardContent() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="ai-features" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>AI Chatbot</CardTitle>
-                <CardDescription>Query the data and answer questions about trends</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <AiChatbot />
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Sentiment Analysis</CardTitle>
-                <CardDescription>AI-powered sentiment analysis of social media content</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <SentimentAnalysis />
-              </CardContent>
-            </Card>
-          </div>
+        <TabsContent value="ai-features" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>AI Chatbot</CardTitle>
+              <CardDescription>Query the data and answer questions about trends</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <AiChatbot />
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
